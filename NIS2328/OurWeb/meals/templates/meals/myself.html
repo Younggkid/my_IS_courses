@@ -1,0 +1,84 @@
+<!--5.9lcy
+个人主页
+个人信息显示，导航栏
+-->
+{% extends "meals/base.html" %}
+{% load static %}
+{% block title %}<title>个人主页</title>{% endblock %}
+
+<link href="{% static 'css/bootstrap-combined.min.css' %}" rel="stylesheet">
+    <!--个人主页的css-->
+<link href="{% static 'css/layoutit.css'%}" rel="stylesheet">
+{% block content %}
+<div class="container">
+	<div class="row">
+		<div class="span3">
+		</div>
+		<div class="span6">
+			<div class="hero-unit">
+				<h1>
+					<strong>你好, {{ user.user_name }}!</strong>
+				</h1>
+                <div>&nbsp;</div>
+				<p>
+					这是您的个人主页, 您可以在此编辑您的个人信息, 也可以在此查看您所收藏或点赞过的菜品。
+				</p>
+			</div>
+			<ul class="nav nav-tabs">
+				<li class="active">
+					<a href="">个人信息</a>
+				</li>
+				<li>
+					<a href="{% url 'meals:myself_mealcollect' %}">收藏的菜品</a>
+				</li>
+                <li>
+					<a href="{% url 'meals:myself_meallike' %}">点赞的菜品</a>
+				</li>
+				<li class="dropdown" >
+                    <a href="#" data-toggle="dropdown" class="dropdown-toggle">编辑</a>
+					<ul class="dropdown-menu">
+						<li>
+							<a href="{% url 'meals:modify_myself' %}">编辑个人信息</a>
+					</ul>
+				</li>
+			</ul>
+            <div>&nbsp;</div>
+			<div class="row-fluid">
+				<div class="span3">
+                    {% csrf_token %}
+					{% if user.avatar %}
+                        <img width="170" height="170" src="{{ user.avatar.url }}" class="img-circle"/>
+                    {% else %}
+                        <img width="170" height="170" src="/media/avatar/default0.jpg" class="img-circle"/>
+                    {% endif %}
+				</div>
+				<div class="span9">
+					<div class="page-header">
+						<h1>
+							<strong>{{ user.user_name }} </strong><small> 关于你的个人信息  </small>
+						</h1>
+					</div>
+                    <p>&nbsp;</p>
+                    <div class="page-header" contenteditable="true">
+                        {% if user.email %}
+                            <p><big><cite><strong>电子邮箱</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<small>{{ user.email }}</small></cite></big></p>
+                        {% else %}
+                            <p><big><cite><strong>电子邮箱</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <small></small></cite></big></p>
+                        {% endif %}
+                    </div>
+                    <div class="page-header" contenteditable="true">
+                        {% if user.telephone %}
+                            <p><big><cite><strong>电话号码</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<small>{{ user.telephone }}</small></cite></big></p>
+                        {% else %}
+                            <p><big><cite><strong>电话号码</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <small></small></cite></big></p>
+                        {% endif %}
+                    </div>
+				</div>
+			</div>
+		</div>
+		<div class="span3">
+		</div>
+	</div>
+</div>
+{% endblock %}
+

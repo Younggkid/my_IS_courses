@@ -1,0 +1,68 @@
+<!--5.10 lcy
+显示点赞菜品
+-->
+{% extends "meals/base.html" %}
+{% load static %}
+{% block title %}<title>个人主页</title>{% endblock %}
+
+<link href="{% static 'css/bootstrap-combined.min.css' %}" rel="stylesheet">
+    <!--个人主页的css-->
+<link href="{% static 'css/layoutit.css'%}" rel="stylesheet">
+{% block content %}
+<div class="container">
+	<div class="row">
+		<div class="span3">
+		</div>
+		<div class="span6">
+			<div class="hero-unit">
+				<h1>
+					<strong>你好, {{ user.user_name }}!</strong>
+				</h1>
+                <div>&nbsp;</div>
+				<p>
+					这是您的个人主页, 您可以在此编辑您的个人信息, 也可以在此查看您所收藏或点赞过的菜品。
+				</p>
+			</div>
+			<ul class="nav nav-tabs">
+				<li>
+					<a href="{% url 'meals:myself' %}">个人信息</a>
+				</li>
+				<li>
+					<a href="{% url 'meals:myself_mealcollect' %}">收藏的菜品</a>
+				</li>
+                <li class="active">
+					<a href="{% url 'meals:myself_meallike' %}">点赞的菜品</a>
+				</li>
+				<li class="dropdown" >
+                    <a href="#" data-toggle="dropdown" class="dropdown-toggle">编辑</a>
+					<ul class="dropdown-menu">
+						<li>
+							<a href="{% url 'meals:modify_myself' %}">编辑个人信息</a>
+					</ul>
+				</li>
+			</ul>
+            <div>&nbsp;</div>
+            <div class="row">
+                {% for meal in like_meal %}
+                    <div class="col-lg-3 col-md-4 col-sm-6 col-xs-6">
+                         <div class="thumbnail">
+                            <img src="{{ meal.meal.picture.url }}" alt="菜品图片" class="img-responsive" onload="DrawImage(this)">
+                            <div class="caption">
+                                <h3>{{ meal.meal.name }}</h3>
+                                <p>{{ meal.meal.canteen }}</p>
+                                <p>
+                                    <a href="{% url 'meals:detail' meal.meal.id %}" class="btn btn-primary" role="button">
+                                        详情
+                                    </a>
+                                </p>
+                            </div>
+                         </div>
+                    </div>
+
+                {% endfor %}
+            </div>
+		</div>
+		<div class="span3"></div>
+	</div>
+</div>
+{% endblock %}
