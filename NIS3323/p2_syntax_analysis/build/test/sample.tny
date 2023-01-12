@@ -1,0 +1,16 @@
+read word 
+read sentence 
+if word < 10 then
+    word:=word+20-(30+60)
+else if word = 5 then 
+    repeat
+        sentence := 40 * 50 / sentence
+        repeat
+        word := 10*89+word
+        until word = 1500
+    until sentence = 6
+        
+write issue 
+write word
+end 
+end
